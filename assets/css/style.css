@@ -13,6 +13,22 @@ input {
     width: 100%;
 }
 
+/* Background color for the current city and date */
+.cityTitle {
+    background-color: midnightblue;
+}
+
+/* Properties for each future date card */
+.card {
+    background-image: linear-gradient(royalblue, midnightblue);
+    color: white;
+    border-style: none;
+}
+
+.mainWeatherIcon {
+    font-size: 5rem;
+}
+
 /* Properties for the Search button */
 #searchBtn {
     width: 100%;
