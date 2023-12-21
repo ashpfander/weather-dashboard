@@ -25,7 +25,7 @@
             <!-- Uses some Bootstrap CSS properties within the class -->
             <section class="col-12 col-md-5 col-lg-3 pt-3">
                 <h2>Search for a City:</h2>
-                <input class="p-1" type="text" placeholder="Denver">
+                <input class="search p-1" type="text" placeholder="Denver">
                 <button id="searchBtn" class="p-1 mt-3">Search</button>
                 <hr>
                 <button id="searchHistory" class="pt-1 mb-3"></button>
@@ -34,15 +34,15 @@
             <section class="col-12 col-md-7 col-lg-9 p-3">
                 <!-- Area for the current city and date title -->
                 <div class="cityTitle text-center text-light pt-3 pb-1">
-                    <h2>City</h2>
-                    <h4>Date</h4>
+                    <h2 class="currentCity">City</h2>
+                    <h4 class="currentDate">Date</h4>
                 </div>
                 <!-- div classes to separate information from weather icon -->
                 <div class="row">
                     <div class="col-6 pt-3">
-                        <h3>45°</h3>
-                        <p>Humidity:</p>
-                        <p>Wind Speed:</p>
+                        <h3 class="currentTemp">45°</h3>
+                        <p class="currentHumidity">Humidity:</p>
+                        <p class="currentWind">Wind Speed:</p>
                     </div>
                     <!-- div area specifically for larger weather icon -->
                     <div class="col-6 pt-3 text-end">
@@ -55,35 +55,35 @@
                     <!-- Title for the area -->
                     <h4 class="m-3 text-center">5-Day Forecast:</h4>
                     <!-- div cards for each future date -->
-                    <div class="date-1 card col-5 col-md-5 col-lg-2 m-2 p-3">
+                    <div class="card col-5 col-md-5 col-lg-2 m-2 p-3">
+                        <h5 class="date text-center">Date</h5>
+                        <p class="weatherIcon text-center">Weather Icon</p>
+                        <h3 class="temp">45°</h3>
+                        <p class="humidity">Humidity:</p>
+                        <p class="wind">Wind Speed:</p>
+                    </div>
+                    <div class="card col-5 col-md-5 col-lg-2 m-2 p-3">
                         <h5 class="date text-center">Date</h5>
                         <p class="weatherIcon text-center">Weather Icon</p>
                         <h3 class="temperature">45°</h3>
                         <p class="humidity">Humidity:</p>
                         <p class="wind">Wind Speed:</p>
                     </div>
-                    <div class="date-1 card col-5 col-md-5 col-lg-2 m-2 p-3">
+                    <div class="card col-5 col-md-5 col-lg-2 m-2 p-3">
                         <h5 class="date text-center">Date</h5>
                         <p class="weatherIcon text-center">Weather Icon</p>
                         <h3 class="temperature">45°</h3>
                         <p class="humidity">Humidity:</p>
                         <p class="wind">Wind Speed:</p>
                     </div>
-                    <div class="date-1 card col-5 col-md-5 col-lg-2 m-2 p-3">
+                    <div class="card col-5 col-md-5 col-lg-2 m-2 p-3">
                         <h5 class="date text-center">Date</h5>
                         <p class="weatherIcon text-center">Weather Icon</p>
                         <h3 class="temperature">45°</h3>
                         <p class="humidity">Humidity:</p>
                         <p class="wind">Wind Speed:</p>
                     </div>
-                    <div class="date-1 card col-5 col-md-5 col-lg-2 m-2 p-3">
-                        <h5 class="date text-center">Date</h5>
-                        <p class="weatherIcon text-center">Weather Icon</p>
-                        <h3 class="temperature">45°</h3>
-                        <p class="humidity">Humidity:</p>
-                        <p class="wind">Wind Speed:</p>
-                    </div>
-                    <div class="date-1 card col-5 col-md-5 col-lg-2 m-2 p-3">
+                    <div class="card col-5 col-md-5 col-lg-2 m-2 p-3">
                         <h5 class="date text-center">Date</h5>
                         <p class="weatherIcon text-center">Weather Icon</p>
                         <h3 class="temperature">45°</h3>
