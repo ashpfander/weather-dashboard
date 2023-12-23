@@ -14,3 +14,22 @@ var futureDate = $(".card");
 
 // Create a variable for the API key
 var apiKey = "e5d2070e2cf8c17bde06a4eba2c18e7f";
+
+// Fetching the weather data from the API
+function getWeather() {
+    var requestUrl = "https://api.openweathermap.org/data/2.5/forecast?q=" + inputSearch.val() + "&appid=" + apiKey;
+  
+    fetch(requestUrl)
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (data) {
+        console.log(data);
+
+        // Display current date and city with country
+        currentCity.text(data.city.name + " (" + data.city.country + ")");
+        currentDate.text(dayjs().format("M/D/YY"));
+      })
+}
+
+searchBtn.on('click', getWeather);
