@@ -16,6 +16,7 @@ input {
 /* Background color for the current city and date */
 .cityTitle {
     background-color: midnightblue;
+    display: none;
 }
 
 /* Properties for each future date card */
@@ -23,6 +24,10 @@ input {
     background-image: linear-gradient(royalblue, midnightblue);
     color: white;
     border-style: none;
+}
+
+.weatherDivider {
+    display: none;
 }
 
 /* Properties for the Search button */

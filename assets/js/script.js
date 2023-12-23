@@ -27,11 +27,16 @@ function getWeather() {
         console.log(data);
 
         // Display current date's weather conditions for selected city
+        // Set display: none areas to show with display: block
+        $(".cityTitle").attr("style", "display: block");
+        $(".weatherDivider").attr("style", "display: block");
         currentCity.text(data.city.name + " (" + data.city.country + ")");
         currentDate.text(dayjs().format("M/D/YY"));
         currentTemp.text(data.list[0].main.temp + "°");
         currentHumidity.text("Humidity: " + data.list[0].main.humidity + "%");
         currentWind.text("Wind Speed: " + data.list[0].wind.speed + " MPH");
+        // Empties the current icon upon new search instead of adding new ones to an existing icon
+        currentIcon.empty();
         currentIcon.append("<img src='https://openweathermap.org/img/wn/" + data.list[0].weather[0].icon + "@2x.png'/>");
       })
 }
