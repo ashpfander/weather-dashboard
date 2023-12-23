@@ -17,7 +17,7 @@ var apiKey = "e5d2070e2cf8c17bde06a4eba2c18e7f";
 
 // Fetching the weather data from the API
 function getWeather() {
-    var requestUrl = "https://api.openweathermap.org/data/2.5/forecast?q=" + inputSearch.val() + "&appid=" + apiKey;
+    var requestUrl = "https://api.openweathermap.org/data/2.5/forecast?units=imperial&q=" + inputSearch.val() + "&appid=" + apiKey;
   
     fetch(requestUrl)
       .then(function (response) {
@@ -26,9 +26,13 @@ function getWeather() {
       .then(function (data) {
         console.log(data);
 
-        // Display current date and city with country
+        // Display current date's weather conditions for selected city
         currentCity.text(data.city.name + " (" + data.city.country + ")");
         currentDate.text(dayjs().format("M/D/YY"));
+        currentTemp.text(data.list[0].main.temp + "°");
+        currentHumidity.text("Humidity: " + data.list[0].main.humidity + "%");
+        currentWind.text("Wind Speed: " + data.list[0].wind.speed + " MPH");
+        currentIcon.append("<img src='https://openweathermap.org/img/wn/" + data.list[0].weather[0].icon + "@2x.png'/>");
       })
 }
 

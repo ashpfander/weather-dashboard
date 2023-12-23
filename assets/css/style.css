@@ -25,10 +25,6 @@ input {
     border-style: none;
 }
 
-.mainWeatherIcon {
-    font-size: 5rem;
-}
-
 /* Properties for the Search button */
 #searchBtn {
     width: 100%;
