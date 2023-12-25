@@ -18,13 +18,19 @@ var apiKey = "e5d2070e2cf8c17bde06a4eba2c18e7f";
 // Fetching the weather data from the API
 function getWeather() {
     var requestUrl = "https://api.openweathermap.org/data/2.5/forecast?units=imperial&q=" + inputSearch.val() + "&appid=" + apiKey;
-  
+
     fetch(requestUrl)
       .then(function (response) {
         return response.json();
       })
       .then(function (data) {
         console.log(data);
+
+        // Convert first letter from user input to uppercase
+        var convertUpper = inputSearch.val().charAt(0).toUpperCase();
+        var cities = convertUpper + inputSearch.val().slice(1);
+        // Store searched cities to local storage
+        localStorage.setItem(cities, JSON.stringify(data));
 
         // Display current date's weather conditions for selected city
         // Set display: none areas to show with display: block
@@ -38,7 +44,25 @@ function getWeather() {
         // Empties the current icon upon new search instead of adding new ones to an existing icon
         currentIcon.empty();
         currentIcon.append("<img src='https://openweathermap.org/img/wn/" + data.list[0].weather[0].icon + "@2x.png'/>");
+
+        // Empties input field once city has been searched
+        inputSearch.val("");
       })
 }
 
-searchBtn.on('click', getWeather);
+// Create function for storing past cities under the search area
+function cityHistory() {
+    // Convert first letter from user input to uppercase
+    var convertUpper = inputSearch.val().charAt(0).toUpperCase();
+    var cities = convertUpper + inputSearch.val().slice(1);
+
+    searchHistory.attr("style", "display: block");
+    searchHistory.text(cities);
+}
+
+searchBtn.on('click', function() {
+    // Calls the getWeather function first
+    getWeather();
+    // Calls the past cities searched function
+    cityHistory();
+});

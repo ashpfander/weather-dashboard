@@ -52,8 +52,7 @@ input {
     background-color: darkgrey;
     border-style: none;
     border-radius: 0.5rem;
-    display: none
-    ;
+    display: none;
 }
 
 /* Creates a different background color for when the button is actively being clicked */
