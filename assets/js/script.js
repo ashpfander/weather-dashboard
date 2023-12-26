@@ -10,8 +10,6 @@ var currentHumidity = $(".currentHumidity");
 var currentWind = $(".currentWind");
 var currentIcon = $(".mainWeatherIcon");
 
-var futureDate = $(".card");
-
 // Create a variable for the API key
 var apiKey = "e5d2070e2cf8c17bde06a4eba2c18e7f";
 
@@ -47,6 +45,30 @@ function getWeather() {
 
         // Empties input field once city has been searched
         inputSearch.val("");
+
+        // Empty array to store the 5-day forecast dates
+        var fiveDayForecast = [];
+
+        // For loop to go through 5-days and store that data in an empty array
+        for (var i = 0; i < 5; i++) {
+            var futureDate = dayjs(data.list[1 + (i * 8)].dt_txt).format("M/D/YY");
+            fiveDayForecast.push(futureDate);
+        }
+        // For loop for adding the 5-days forecast information
+        for (var i = 0; i < fiveDayForecast.length; i++) {
+            // Set 5-day forecast area to display once city is searched
+            $(".fiveDayTitle").attr("style", "display: block");
+            $(".card").attr("style", "display: block");
+
+            // Add weather information to each card area for each future date
+            $(".date").eq(i).text(dayjs(data.list[1 + (i * 8)].dt_txt).format("M/D/YY"));
+            $(".temp").eq(i).text(data.list[1 + (i * 8)].main.temp + "°");
+            $(".humidity").eq(i).text("Humidity: " + data.list[1 + (i * 8)].main.humidity + "%");
+            $(".wind").eq(i).text("Wind Speed: " + data.list[1 + (i * 8)].wind.speed + " MPH");
+            // Empties the current icon upon new search instead of adding new ones to an existing icon
+            $(".weatherIcon").eq(i).empty();
+            $(".weatherIcon").eq(i).append("<img src='https://openweathermap.org/img/wn/" + data.list[1 + (i * 8)].weather[0].icon + ".png'/>");
+        }
       })
 }
 
