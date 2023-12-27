@@ -32,6 +32,25 @@ function capitalizeWords() {
     return words.join(" ");
 }
 
+// Loads saved searches from local storage if it has anything
+function loadSavedSearches() {
+    // Checks if anything exists within local storage
+    // If there are contents, run this code
+    if (localStorage.getItem("cities")) {
+        var searchedCities = JSON.parse(localStorage.getItem("cities"));
+        for (var i = 0; i < searchedCities.length; i++) {
+            var button = $("<button>").addClass("searchHistory").text(searchedCities[i]);
+            searchHistory.append(button);
+    
+            button.on("click", function() {
+                var currentLocation = $(this).text();
+                getCurrentWeather(currentLocation);
+                getFiveDayForecast(currentLocation);
+            });
+        }
+    }
+}
+
 // Fetching the weather data from the current weather API
 function getCurrentWeather(currentLocation) {
     var requestUrl = "https://api.openweathermap.org/data/2.5/weather?units=imperial&q=" + currentLocation + "&appid=" + apiKey;
@@ -100,6 +119,9 @@ function getFiveDayForecast(currentLocation) {
 
 // Create function for storing past cities under the search area
 function cityHistory() {
+    // Checks if there is already anything in local storage or keeps the array blank
+    // So it doesn't replace the local storage upon new page refresh
+    var searchedCities = JSON.parse(localStorage.getItem("cities")) || [];
     var searchedCity = capitalizeWords(inputSearch.val());
     // Checks if searched city already exists in the search area and adds it if it doesn't
     if (!searchedCities.includes(searchedCity)) {
@@ -117,6 +139,9 @@ function cityHistory() {
         })
     }
 };
+
+// Loads search history upon page arrival if there are any
+loadSavedSearches();
 
 // Once the search button is clicked, the following functions are activated
 searchBtn.on('click', function() {
