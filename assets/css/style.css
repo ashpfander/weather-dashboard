@@ -32,6 +32,21 @@ input {
     display: none;
 }
 
+/* Properties for the Search History City buttons */
+.searchHistory {
+    width: 100%;
+    height: 2.5rem;
+    background-color: darkgrey;
+    border-style: none;
+    border-radius: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+/* Creates a different background color for when the button is actively being clicked */
+.searchHistory:active {
+    background-color: dimgrey;
+}
+
 /* Properties for the Search button */
 #searchBtn {
     width: 100%;
@@ -45,19 +60,4 @@ input {
 /* Creates a different background color for when the button is actively being clicked */
 #searchBtn:active {
     background-color: midnightblue;
-}
-
-/* Properties for the Search History City buttons */
-#searchHistory {
-    width: 100%;
-    height: 2.5rem;
-    background-color: darkgrey;
-    border-style: none;
-    border-radius: 0.5rem;
-    display: none;
-}
-
-/* Creates a different background color for when the button is actively being clicked */
-#searchHistory:active {
-    background-color: dimgrey;
 }

@@ -1,7 +1,7 @@
 // Create variables for easy grabbing sections in HTML using JQuery
 var inputSearch = $(".search");
 var searchBtn = $("#searchBtn");
-var searchHistory = $("#searchHistory");
+var searchHistory = $(".pastCities");
 
 var currentCity = $(".currentCity");
 var currentDate = $(".currentDate");
@@ -13,6 +13,25 @@ var currentIcon = $(".mainWeatherIcon");
 // Create a variable for the API key
 var apiKey = "e5d2070e2cf8c17bde06a4eba2c18e7f";
 
+// Empty array for storing searched cities
+var searchedCities = [];
+
+// Convert first letter from user input to uppercase
+function capitalizeWords() {
+    var str = inputSearch.val();
+    // Split the string into an array of words
+    var words = str.split(" ");
+
+    for (var i = 0; i < words.length; i++) {
+        var word = words[i];
+        // Capitalize the first letter of each word
+        var capitalizedWord = word.charAt(0).toUpperCase() + word.slice(1);
+        words[i] = capitalizedWord;
+    }
+
+    return words.join(" ");
+}
+
 // Fetching the weather data from the current weather API
 function getCurrentWeather() {
     var requestUrl = "https://api.openweathermap.org/data/2.5/weather?units=imperial&q=" + inputSearch.val() + "&appid=" + apiKey;
@@ -23,12 +42,6 @@ function getCurrentWeather() {
         })
         .then(function (data) {
         console.log(data);
-
-        // Convert first letter from user input to uppercase
-        var convertUpper = inputSearch.val().charAt(0).toUpperCase();
-        var cities = convertUpper + inputSearch.val().slice(1);
-        // Store searched cities to local storage
-        localStorage.setItem(cities, JSON.stringify(data));
 
         // Display current date's weather conditions for selected city
         // Set display: none areas to show with display: block
@@ -87,20 +100,25 @@ function getFiveDayForecast() {
 
 // Create function for storing past cities under the search area
 function cityHistory() {
-    // Convert first letter from user input to uppercase
-    var convertUpper = inputSearch.val().charAt(0).toUpperCase();
-    var cities = convertUpper + inputSearch.val().slice(1);
-
-    searchHistory.attr("style", "display: block");
-    searchHistory.text(cities);
-}
+    var searchedCity = capitalizeWords(inputSearch.val());
+    // Checks if searched city already exists in the search area and adds it if it doesn't
+    if (!searchedCities.includes(searchedCity)) {
+        searchedCities.push(searchedCity);
+        // Add searched city to local storage in array
+        localStorage.setItem("cities", JSON.stringify(searchedCities));
+        // Adds city to search history area as a button
+        var button = $("<button>").addClass("searchHistory").text(searchedCity);
+        searchHistory.append(button);
+    }
+};
 
 // Once the search button is clicked, the following functions are activated
 searchBtn.on('click', function() {
+    var searchedCity = capitalizeWords(inputSearch.val());
     // Calls the getCurrentWeather function first
-    getCurrentWeather();
+    getCurrentWeather(searchedCity);
     // Calls the 5-day forecast function
-    getFiveDayForecast();
+    getFiveDayForecast(searchedCity);
     // Calls the past cities searched function
     cityHistory();
 });
