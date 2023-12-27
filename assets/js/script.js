@@ -33,8 +33,8 @@ function capitalizeWords() {
 }
 
 // Fetching the weather data from the current weather API
-function getCurrentWeather() {
-    var requestUrl = "https://api.openweathermap.org/data/2.5/weather?units=imperial&q=" + inputSearch.val() + "&appid=" + apiKey;
+function getCurrentWeather(currentLocation) {
+    var requestUrl = "https://api.openweathermap.org/data/2.5/weather?units=imperial&q=" + currentLocation + "&appid=" + apiKey;
 
     fetch(requestUrl)
         .then(function (response) {
@@ -62,8 +62,8 @@ function getCurrentWeather() {
 }
 
 // Fetches the 5-day forecast from the API
-function getFiveDayForecast() {
-    var requestUrl = "https://api.openweathermap.org/data/2.5/forecast?units=imperial&q=" + inputSearch.val() + "&appid=" + apiKey;
+function getFiveDayForecast(currentLocation) {
+    var requestUrl = "https://api.openweathermap.org/data/2.5/forecast?units=imperial&q=" + currentLocation + "&appid=" + apiKey;
         
     fetch(requestUrl)
         .then(function (response) {
@@ -109,6 +109,12 @@ function cityHistory() {
         // Adds city to search history area as a button
         var button = $("<button>").addClass("searchHistory").text(searchedCity);
         searchHistory.append(button);
+
+        button.on("click", function() {
+            var currentLocation = $(this).text();
+            getCurrentWeather(currentLocation);
+            getFiveDayForecast(currentLocation);
+        })
     }
 };
 
