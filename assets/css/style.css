@@ -11,6 +11,7 @@ header {
 /* Makes the input field stretch to full width */
 input {
     width: 100%;
+    margin-bottom: 1rem;
 }
 
 /* Background color for the current city and date */
@@ -48,7 +49,7 @@ input {
 }
 
 /* Properties for the Search button */
-#searchBtn {
+.searchBtn {
     width: 100%;
     height: 2.5rem;
     color: white;
@@ -58,6 +59,6 @@ input {
 }
 
 /* Creates a different background color for when the button is actively being clicked */
-#searchBtn:active {
+.searchBtn:active {
     background-color: midnightblue;
 }

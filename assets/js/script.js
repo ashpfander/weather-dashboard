@@ -1,6 +1,6 @@
 // Create variables for easy grabbing sections in HTML using JQuery
 var inputSearch = $(".search");
-var searchBtn = $("#searchBtn");
+var searchBtn = $(".searchBtn");
 var searchHistory = $(".pastCities");
 
 var currentCity = $(".currentCity");
@@ -140,8 +140,21 @@ function cityHistory() {
     }
 };
 
-// Loads search history upon page arrival if there are any
+function clearSearches() {
+    // Add clear button to clear history
+    var clearButton = $("<button>").addClass("searchBtn").text("Clear");
+    $(".clearSearches").append(clearButton);
+    
+    clearButton.on("click", function() {
+        localStorage.clear();
+        searchHistory.empty();
+        $(".weatherArea").empty();
+    })
+}
+
+// Loads search history upon page arrival if there are any and clear button
 loadSavedSearches();
+clearSearches();
 
 // Once the search button is clicked, the following functions are activated
 searchBtn.on('click', function() {
