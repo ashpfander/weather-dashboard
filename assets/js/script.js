@@ -61,6 +61,8 @@ function getCurrentWeather(currentLocation) {
         })
         .then(function (data) {
         console.log(data);
+        // If the user input matches the city name within the API data
+        if (currentLocation == data.name) {
 
         // Display current date's weather conditions for selected city
         // Set display: none areas to show with display: block
@@ -75,8 +77,18 @@ function getCurrentWeather(currentLocation) {
         currentIcon.empty();
         currentIcon.append("<img src='https://openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png'/>");
 
+        // Calls the past cities searched function
+        cityHistory();
+
         // Empties input field once city has been searched
         inputSearch.val("");
+        } 
+        // If the user inputs an incorrect or misspelled city
+        else {
+            alert("Could not locate city. Please enter a valid city name.");
+            // Empties input field once city has been searched
+            inputSearch.val("");
+        }
     })
 }
 
@@ -123,20 +135,24 @@ function cityHistory() {
     // So it doesn't replace the local storage upon new page refresh
     var searchedCities = JSON.parse(localStorage.getItem("cities")) || [];
     var searchedCity = capitalizeWords(inputSearch.val());
-    // Checks if searched city already exists in the search area and adds it if it doesn't
-    if (!searchedCities.includes(searchedCity)) {
-        searchedCities.push(searchedCity);
-        // Add searched city to local storage in array
-        localStorage.setItem("cities", JSON.stringify(searchedCities));
-        // Adds city to search history area as a button
-        var button = $("<button>").addClass("searchHistory").text(searchedCity);
-        searchHistory.append(button);
-
-        button.on("click", function() {
-            var currentLocation = $(this).text();
-            getCurrentWeather(currentLocation);
-            getFiveDayForecast(currentLocation);
-        })
+    // If the search isn't empty, then it runs the next if statement
+    // To prevent it from adding a blank input to the local storage array/search history buttons
+    if (searchedCity !== "") {
+        // Checks if searched city already exists in the search area and adds it if it doesn't
+        if (!searchedCities.includes(searchedCity)) {
+            searchedCities.push(searchedCity);
+            // Add searched city to local storage in array
+            localStorage.setItem("cities", JSON.stringify(searchedCities));
+            // Adds city to search history area as a button
+            var button = $("<button>").addClass("searchHistory").text(searchedCity);
+            searchHistory.append(button);
+            // Gets selected city's weather information when clicked on
+            button.on("click", function() {
+                var currentLocation = $(this).text();
+                getCurrentWeather(currentLocation);
+                getFiveDayForecast(currentLocation);
+            })
+        }
     }
 };
 
@@ -159,10 +175,13 @@ clearSearches();
 // Once the search button is clicked, the following functions are activated
 searchBtn.on('click', function() {
     var searchedCity = capitalizeWords(inputSearch.val());
-    // Calls the getCurrentWeather function first
-    getCurrentWeather(searchedCity);
-    // Calls the 5-day forecast function
-    getFiveDayForecast(searchedCity);
-    // Calls the past cities searched function
-    cityHistory();
+    if (searchedCity === "") {
+        // Sends alert if input is empty
+        alert("Please enter a city name.");
+    } else {
+        // Calls the getCurrentWeather function first
+        getCurrentWeather(searchedCity);
+        // Calls the 5-day forecast function
+        getFiveDayForecast(searchedCity);
+    }
 });
